@@ -106,7 +106,7 @@ class LoginPage extends StatelessWidget {
           title: Text('Oh Snap!'),
           content: Text(error.message),
           actions: [
-            FlatButton(
+            TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },

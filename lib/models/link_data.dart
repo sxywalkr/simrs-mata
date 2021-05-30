@@ -18,8 +18,8 @@ class LinkData {
 
   factory LinkData.fromDocument(QueryDocumentSnapshot data) {
     return LinkData(
-      title: data.data()['title'],
-      url: data.data()['url'],
+      title: data['title'],
+      url: data['url'],
       id: data.id,
       documentReference: data.reference,
     );

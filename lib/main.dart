@@ -1,12 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:simrs_mata/ui/login_page/login_page.dart';
-import 'package:simrs_mata/ui/main_page/main_page.dart';
-import 'package:simrs_mata/models/link_data.dart';
-import 'package:simrs_mata/not_found_page.dart';
-import 'package:simrs_mata/ui/settings_page/settings_page.dart';
 import 'package:provider/provider.dart';
+import 'package:simrs_mata/models/link_data.dart';
+import 'package:simrs_mata/models/user_rm_data.dart';
+import 'package:simrs_mata/not_found_page.dart';
+import 'package:simrs_mata/routes/route_controller.dart';
 
 void main() {
   // WidgetsFlutterBinding.ensureInitialized();
@@ -29,16 +28,33 @@ class MyApp extends StatelessWidget {
       }).toList();
     });
 
+    final userRmCollection = FirebaseFirestore.instance.collection('userRm');
+    final userRmStream =
+        userRmCollection.orderBy('userRmNama').snapshots().map((snapshot) {
+      return snapshot.docs.map((doc) {
+        return UserRmData.fromDocument(doc);
+      }).toList();
+    });
+
     return MultiProvider(
       providers: [
         StreamProvider<User>(
+          initialData: null,
           create: (context) => FirebaseAuth.instance.authStateChanges(),
         ),
         Provider<CollectionReference>(
           create: (context) => linksCollection,
         ),
+        Provider<CollectionReference>(
+          create: (context) => userRmCollection,
+        ),
         StreamProvider<List<LinkData>>(
+          initialData: [],
           create: (context) => userLinkDataStream,
+        ),
+        StreamProvider<List<UserRmData>>(
+          initialData: [],
+          create: (context) => userRmStream,
         ),
       ],
       child: MaterialApp(
@@ -65,31 +81,5 @@ class MyApp extends StatelessWidget {
         },
       ),
     );
-  }
-}
-
-class RouteController extends StatelessWidget {
-  final String settingsName;
-  const RouteController({
-    Key key,
-    @required this.settingsName,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final userSignedIn = Provider.of<User>(context) != null;
-    final notSignedInGoSettings = !userSignedIn && settingsName == '/settings';
-    final signedInGoSettings = userSignedIn && settingsName == '/settings';
-
-    if (settingsName == '/') {
-      // return LinksLandingPage();
-      return MainPage();
-    } else if (notSignedInGoSettings || settingsName == '/login') {
-      return LoginPage();
-    } else if (signedInGoSettings) {
-      return SettingsPage();
-    } else {
-      return NotFoundPage();
-    }
   }
 }

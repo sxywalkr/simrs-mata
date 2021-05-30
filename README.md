@@ -19,3 +19,7 @@ samples, guidance on mobile development, and a full API reference.
 
 #rules
 allow read, write: if request.auth != null;
+
+#userapp
+adm@app.com
+adm_p455
