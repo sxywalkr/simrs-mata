@@ -16,3 +16,6 @@ For help getting started with Flutter, view our
 samples, guidance on mobile development, and a full API reference.
 
 #simrs_mata
+
+#rules
+allow read, write: if request.auth != null;

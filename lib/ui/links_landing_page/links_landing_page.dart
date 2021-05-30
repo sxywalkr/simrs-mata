@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:links_landing_page/constants.dart';
-import 'package:links_landing_page/links_landing_page/button_link.dart';
-import 'package:links_landing_page/links_landing_page/footer.dart';
-import 'package:links_landing_page/models/link_data.dart';
+import 'package:simrs_mata/constants.dart';
+import 'package:simrs_mata/ui/links_landing_page/button_link.dart';
+import 'package:simrs_mata/ui/links_landing_page/footer.dart';
+import 'package:simrs_mata/models/link_data.dart';
 import 'package:provider/provider.dart';
 
 class LinksLandingPage extends StatelessWidget {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:links_landing_page/links_landing_page/links_landing_page.dart';
+import 'package:simrs_mata/ui/links_landing_page/links_landing_page.dart';
 
 class PreviewSection extends StatelessWidget {
   const PreviewSection({

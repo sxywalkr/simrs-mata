@@ -63,7 +63,7 @@ class LoginPage extends StatelessWidget {
                     SizedBox(
                       height: 40,
                       width: double.infinity,
-                      child: FlatButton(
+                      child: TextButton(
                         onPressed: () {
                           if (_formKey.currentState.validate()) {
                             final _email = _emailController.text;
@@ -73,8 +73,8 @@ class LoginPage extends StatelessWidget {
                                   email: _email,
                                   password: _password,
                                 )
-                                .then((_) => Navigator.of(context)
-                                    .pushNamed('/settings'))
+                                .then(
+                                    (_) => Navigator.of(context).pushNamed('/'))
                                 .catchError((error) {
                               showErrorDialog(context, error);
                             });
@@ -84,7 +84,8 @@ class LoginPage extends StatelessWidget {
                           'Login',
                           style: TextStyle(color: Colors.white),
                         ),
-                        color: Colors.blueAccent,
+                        style:
+                            TextButton.styleFrom(backgroundColor: Colors.blue),
                       ),
                     )
                   ],

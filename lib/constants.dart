@@ -1,4 +1,4 @@
-import 'package:links_landing_page/models/link_data.dart';
+import 'package:simrs_mata/models/link_data.dart';
 
 final documents = [
   LinkData(title: 'Youtube', url: 'https://youtube.com'),

@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:links_landing_page/links_landing_page/links_landing_page.dart';
-import 'package:links_landing_page/login_page/login_page.dart';
-import 'package:links_landing_page/models/link_data.dart';
-import 'package:links_landing_page/not_found_page.dart';
-import 'package:links_landing_page/settings_page/settings_page.dart';
+import 'package:simrs_mata/ui/login_page/login_page.dart';
+import 'package:simrs_mata/ui/main_page/main_page.dart';
+import 'package:simrs_mata/models/link_data.dart';
+import 'package:simrs_mata/not_found_page.dart';
+import 'package:simrs_mata/ui/settings_page/settings_page.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
+        title: 'SIMRS MATA',
         theme: ThemeData(
           primarySwatch: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -82,7 +82,8 @@ class RouteController extends StatelessWidget {
     final signedInGoSettings = userSignedIn && settingsName == '/settings';
 
     if (settingsName == '/') {
-      return LinksLandingPage();
+      // return LinksLandingPage();
+      return MainPage();
     } else if (notSignedInGoSettings || settingsName == '/login') {
       return LoginPage();
     } else if (signedInGoSettings) {

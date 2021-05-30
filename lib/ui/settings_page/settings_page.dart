@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:links_landing_page/settings_page/button_settings_section.dart';
-import 'package:links_landing_page/settings_page/preview_section.dart';
+import 'package:simrs_mata/ui/settings_page/button_settings_section.dart';
+import 'package:simrs_mata/ui/settings_page/preview_section.dart';
 
 class SettingsPage extends StatelessWidget {
   @override
