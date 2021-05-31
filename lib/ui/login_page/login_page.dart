@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:simrs_mata/routes/routes.dart';
 
 class LoginPage extends StatelessWidget {
   @override
@@ -73,8 +74,8 @@ class LoginPage extends StatelessWidget {
                                   email: _email,
                                   password: _password,
                                 )
-                                .then(
-                                    (_) => Navigator.of(context).pushNamed('/'))
+                                .then((_) => Navigator.of(context)
+                                    .pushNamed(Routes.mainPage))
                                 .catchError((error) {
                               showErrorDialog(context, error);
                             });

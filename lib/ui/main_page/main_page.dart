@@ -16,7 +16,10 @@ class MainPage extends StatelessWidget {
             icon: Icon(Icons.logout),
             label: Text('Sign out'),
             style: TextButton.styleFrom(primary: Colors.white),
-            onPressed: () => FirebaseAuth.instance.signOut(),
+            onPressed: () {
+              Navigator.of(context).pushReplacementNamed('/splash');
+              return FirebaseAuth.instance.signOut();
+            },
           ),
           SizedBox(
             width: 8,

@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:simrs_mata/models/user_rm_data.dart';
 
-class CrudUserRmPage extends StatefulWidget {
+class CreUserRmPage extends StatefulWidget {
   @override
-  _CrudUserRmPageState createState() => _CrudUserRmPageState();
+  _CreUserRmPageState createState() => _CreUserRmPageState();
 }
 
-class _CrudUserRmPageState extends State<CrudUserRmPage> {
+class _CreUserRmPageState extends State<CreUserRmPage> {
   TextEditingController _userRmNikController = TextEditingController();
   TextEditingController _userRmNamaController = TextEditingController();
   TextEditingController _userRmTempatLahirController = TextEditingController();

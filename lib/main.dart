@@ -6,6 +6,10 @@ import 'package:simrs_mata/models/link_data.dart';
 import 'package:simrs_mata/models/user_rm_data.dart';
 import 'package:simrs_mata/not_found_page.dart';
 import 'package:simrs_mata/routes/route_controller.dart';
+import 'package:simrs_mata/routes/routes.dart';
+import 'package:simrs_mata/ui/login_page/login_page.dart';
+import 'package:simrs_mata/ui/main_page/main_page.dart';
+import 'package:simrs_mata/ui/splash_page/splash_page.dart';
 
 void main() {
   // WidgetsFlutterBinding.ensureInitialized();
@@ -64,14 +68,16 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        initialRoute: '/',
-        onGenerateRoute: (settings) {
-          return MaterialPageRoute(
-            builder: (context) {
-              return RouteController(settingsName: settings.name);
-            },
-          );
-        },
+        routes: Routes.routes,
+        home: SplashPage(),
+        // initialRoute: '/',
+        // onGenerateRoute: (settings) {
+        //   return MaterialPageRoute(
+        //     builder: (context) {
+        //       return RouteController(settingsName: settings.name);
+        //     },
+        //   );
+        // },
         onUnknownRoute: (settings) {
           return MaterialPageRoute(
             builder: (context) {
