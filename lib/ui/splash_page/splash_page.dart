@@ -16,7 +16,7 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
-    startTimer();
+    if (mounted) startTimer();
   }
 
   @override
@@ -33,12 +33,12 @@ class _SplashPageState extends State<SplashPage> {
     return Timer(duration, redirect);
   }
 
-  redirect() async {
-    final userSignedIn = Provider.of<User>(context, listen: false) != null;
-    if (userSignedIn) {
-      Navigator.of(context).pushReplacementNamed(Routes.mainPage);
-    } else {
-      Navigator.of(context).pushReplacementNamed(Routes.loginPage);
-    }
+  redirect() {
+    // final userSignedIn = Provider.of<User>(context, listen: false) != null;
+    // if (userSignedIn) {
+    Navigator.of(context).pushReplacementNamed(Routes.mainPage);
+    // } else {
+    //   Navigator.of(context).pushReplacementNamed(Routes.loginPage);
+    // }
   }
 }

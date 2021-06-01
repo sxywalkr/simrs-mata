@@ -1,14 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:simrs_mata/models/user_rm_data.dart';
 import 'package:simrs_mata/routes/routes.dart';
-import 'package:simrs_mata/ui/rekam_medik_page/upd_user_rm_page.dart';
 
 class RekamMedikPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _docs = Provider.of<List<UserRmData>>(context);
-    final width = MediaQuery.of(context).size.width;
+    // final width = MediaQuery.of(context).size.width;
     return Row(
       children: [
         Expanded(
@@ -62,12 +62,48 @@ class RekamMedikPage extends StatelessWidget {
                             ),
                             IconButton(
                               onPressed: () {
-                                return Navigator.of(context).pushNamed(
-                                    Routes.updUserRm,
-                                    arguments: doc);
+                                showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    final _userRmCollection =
+                                        Provider.of<CollectionReference>(
+                                            context);
+                                    return AlertDialog(
+                                      title: Text(
+                                          'Anda ingin menghapus ${doc.userRmNama} ?'),
+                                      content: Text(
+                                          'Data tidak dapat dikembalikan lagi.'),
+                                      actions: [
+                                        TextButton(
+                                          child: Text(
+                                            'Hapus',
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          ),
+                                          style: TextButton.styleFrom(
+                                              backgroundColor:
+                                                  Colors.redAccent),
+                                          onPressed: () {
+                                            _userRmCollection
+                                                .doc(doc.userRmUid)
+                                                .delete();
+                                            Navigator.of(context).pop();
+                                          },
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
                               },
                               icon: Icon(Icons.delete),
-                            )
+                            ),
+                            IconButton(
+                                onPressed: () {
+                                  return Navigator.of(context)
+                                      .pushReplacementNamed(Routes.viwUserRm,
+                                          arguments: doc);
+                                },
+                                icon: Icon(Icons.chevron_right)),
                           ],
                         ),
                       )

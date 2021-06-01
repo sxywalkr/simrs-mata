@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:simrs_mata/routes/routes.dart';
 
 class AppDrawer extends StatelessWidget {
   @override
@@ -14,7 +15,8 @@ class AppDrawer extends StatelessWidget {
             ListTile(
               leading: Icon(Icons.home),
               title: Text('Dashboard'),
-              onTap: () => Navigator.of(context).pushReplacementNamed('/'),
+              onTap: () =>
+                  Navigator.of(context).pushReplacementNamed(Routes.mainPage),
             )
           ],
         ),
