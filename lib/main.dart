@@ -33,6 +33,8 @@ class MyApp extends StatelessWidget {
     });
 
     final userRmCollection = FirebaseFirestore.instance.collection('userRm');
+    final dataUserRmCollection =
+        FirebaseFirestore.instance.collection('dataUserRm');
     final userRmStream =
         userRmCollection.orderBy('userRmNama').snapshots().map((snapshot) {
       return snapshot.docs.map((doc) {
@@ -51,6 +53,9 @@ class MyApp extends StatelessWidget {
         ),
         Provider<CollectionReference>(
           create: (context) => userRmCollection,
+        ),
+        Provider<CollectionReference>(
+          create: (context) => dataUserRmCollection,
         ),
         StreamProvider<List<LinkData>>(
           initialData: [],

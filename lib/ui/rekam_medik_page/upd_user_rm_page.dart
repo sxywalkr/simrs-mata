@@ -46,6 +46,7 @@ class _UpdUserRmPageState extends State<UpdUserRmPage> {
   Widget build(BuildContext context) {
     final _userRmCollection = Provider.of<CollectionReference>(context);
     final _formKey = GlobalKey<FormState>();
+    final width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         title: Text('Update User RM'),
@@ -53,7 +54,7 @@ class _UpdUserRmPageState extends State<UpdUserRmPage> {
       backgroundColor: Colors.blueGrey.shade100,
       body: Center(
         child: SizedBox(
-          width: 400,
+          width: width * 0.6,
           child: Material(
             elevation: 2,
             child: Padding(

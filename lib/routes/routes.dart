@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:simrs_mata/ui/data_rekam_medik_page/cre_data_user_rm_page.dart';
 import 'package:simrs_mata/ui/login_page/login_page.dart';
 import 'package:simrs_mata/ui/main_page/main_page.dart';
 import 'package:simrs_mata/ui/rekam_medik_page/cre_user_rm_page.dart';
@@ -17,6 +18,7 @@ class Routes {
   static const String creUserRm = '/cre-user-rm';
   static const String updUserRm = '/upd-user-rm';
   static const String viwUserRm = '/viw-user-rm';
+  static const String creDataUserRm = '/cre-data-user-rm';
 
   static final routes = <String, WidgetBuilder>{
     loginPage: (BuildContext context) => LoginPage(),
@@ -39,6 +41,10 @@ class Routes {
     viwUserRm: (BuildContext context) {
       final _userSignedIn = Provider.of<User>(context) != null;
       return _userSignedIn ? ViwUserRmPage() : LoginPage();
+    },
+    creDataUserRm: (BuildContext context) {
+      final _userSignedIn = Provider.of<User>(context) != null;
+      return _userSignedIn ? CreDataUserRmPage() : LoginPage();
     },
   };
 }

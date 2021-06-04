@@ -8,7 +8,7 @@ class RekamMedikPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _docs = Provider.of<List<UserRmData>>(context);
-    // final width = MediaQuery.of(context).size.width;
+    final width = MediaQuery.of(context).size.width;
     return Row(
       children: [
         Expanded(
@@ -40,7 +40,7 @@ class RekamMedikPage extends StatelessWidget {
               ),
               SizedBox(height: 50),
               SizedBox(
-                width: 350,
+                width: width * 0.6,
                 height: 200,
                 child: Column(
                   children: [
