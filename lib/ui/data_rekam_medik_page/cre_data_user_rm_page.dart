@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:simrs_mata/models/user_rm_data.dart';
+import 'package:simrs_mata/models/data_user_rm_model.dart';
+import 'package:simrs_mata/models/user_rm_model.dart';
 import 'package:intl/intl.dart';
 
 class CreDataUserRmPage extends StatefulWidget {
@@ -17,6 +18,13 @@ class _CreDataUserRmPageState extends State<CreDataUserRmPage> {
   TextEditingController _dataUserRmHasil1Controller = TextEditingController();
   TextEditingController _dataUserRmHasil2Controller = TextEditingController();
   DateTime _date1 = DateTime.now();
+  UserRmModel routes;
+
+  @override
+  void didChangeDependencies() async {
+    super.didChangeDependencies();
+    routes = ModalRoute.of(context).settings.arguments;
+  }
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime pickedDate = await showDatePicker(
@@ -32,7 +40,8 @@ class _CreDataUserRmPageState extends State<CreDataUserRmPage> {
 
   @override
   Widget build(BuildContext context) {
-    final _dataUserRmCollection = Provider.of<CollectionReference>(context);
+    final _dataUserRmCollection =
+        FirebaseFirestore.instance.collection('dataUserRm');
     final _formKey = GlobalKey<FormState>();
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -79,20 +88,13 @@ class _CreDataUserRmPageState extends State<CreDataUserRmPage> {
                         child: TextButton(
                           onPressed: () {
                             if (_formKey.currentState.validate()) {
-                              // _userRmCollection.add(
-                              //   UserRmData(
-                              //     userRmNik: _userRmNikController.text,
-                              //     userRmNama: _userRmNamaController.text,
-                              //     userRmNomorRm: _userRmNomorRmController.text,
-                              //     userRmAlamat: _userRmAlamatController.text,
-                              //     userRmTempatLahir:
-                              //         _userRmTempatLahirController.text,
-                              //     userRmTanggalLahir:
-                              //         _userRmTanggalLahirController.text,
-                              //     userRmJenisKelamin:
-                              //         _jenisKelaminController.text,
-                              //   ).toMap(),
-                              // );
+                              _dataUserRmCollection.add(
+                                DataUserRmModel(
+                                  userRmUid: routes.userRmUid,
+                                  dataUserRmTanggalPeriksa:
+                                      _date1.toIso8601String(),
+                                ).toMap(),
+                              );
                               Navigator.of(context).pop();
                               _formKey.currentState.reset();
                             }
@@ -115,30 +117,4 @@ class _CreDataUserRmPageState extends State<CreDataUserRmPage> {
       ),
     );
   }
-
-  Future showErrorDialog(BuildContext context, error) {
-    return showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text('Oh Snap!'),
-          content: Text(error.message),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text('Dismiss'),
-            )
-          ],
-        );
-      },
-    );
-  }
-}
-
-bool isValidEmail(String email) {
-  return RegExp(
-          r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-      .hasMatch(email);
 }

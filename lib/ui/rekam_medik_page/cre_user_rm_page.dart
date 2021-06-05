@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:simrs_mata/models/user_rm_data.dart';
+import 'package:simrs_mata/models/user_rm_model.dart';
 
 class CreUserRmPage extends StatefulWidget {
   @override
@@ -20,7 +20,7 @@ class _CreUserRmPageState extends State<CreUserRmPage> {
 
   @override
   Widget build(BuildContext context) {
-    final _userRmCollection = Provider.of<CollectionReference>(context);
+    final _userRmCollection = FirebaseFirestore.instance.collection('userRm');
     print(_userRmCollection.path);
     final _formKey = GlobalKey<FormState>();
     final width = MediaQuery.of(context).size.width;
@@ -154,7 +154,7 @@ class _CreUserRmPageState extends State<CreUserRmPage> {
                           onPressed: () {
                             if (_formKey.currentState.validate()) {
                               _userRmCollection.add(
-                                UserRmData(
+                                UserRmModel(
                                   userRmNik: _userRmNikController.text,
                                   userRmNama: _userRmNamaController.text,
                                   userRmNomorRm: _userRmNomorRmController.text,

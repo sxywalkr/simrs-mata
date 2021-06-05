@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class UserRmData {
+class UserRmModel {
   final String userRmUid;
   final String userRmNik;
   final String userRmNama;
@@ -21,7 +21,7 @@ class UserRmData {
   final String userRmNomorRm;
   final DocumentReference documentReference;
 
-  UserRmData({
+  UserRmModel({
     this.userRmUid,
     @required this.userRmNik,
     @required this.userRmNama,
@@ -61,8 +61,8 @@ class UserRmData {
     };
   }
 
-  factory UserRmData.fromMap(Map<String, dynamic> map) {
-    return UserRmData(
+  factory UserRmModel.fromMap(Map<String, dynamic> map) {
+    return UserRmModel(
       userRmUid: map['userRmUid'],
       userRmNik: map['userRmNik'],
       userRmNama: map['userRmNama'],
@@ -82,8 +82,8 @@ class UserRmData {
     );
   }
 
-  factory UserRmData.fromDocument(QueryDocumentSnapshot qDocSnapshot) {
-    return UserRmData(
+  factory UserRmModel.fromDocument(QueryDocumentSnapshot qDocSnapshot) {
+    return UserRmModel(
       userRmUid: qDocSnapshot.id,
       userRmNik: qDocSnapshot['userRmNik'],
       userRmNama: qDocSnapshot['userRmNama'],
@@ -105,8 +105,8 @@ class UserRmData {
 
   String toJson() => json.encode(toMap());
 
-  factory UserRmData.fromJson(String source) =>
-      UserRmData.fromMap(json.decode(source));
+  factory UserRmModel.fromJson(String source) =>
+      UserRmModel.fromMap(json.decode(source));
 
   @override
   String toString() {
@@ -117,7 +117,7 @@ class UserRmData {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is UserRmData &&
+    return other is UserRmModel &&
         other.userRmUid == userRmUid &&
         other.userRmNik == userRmNik &&
         other.userRmNama == userRmNama &&

@@ -1,13 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:simrs_mata/models/user_rm_data.dart';
+import 'package:simrs_mata/models/user_rm_model.dart';
 import 'package:simrs_mata/routes/routes.dart';
 
 class RekamMedikPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final _docs = Provider.of<List<UserRmData>>(context);
+    final _docs = Provider.of<List<UserRmModel>>(context);
     final width = MediaQuery.of(context).size.width;
     return Row(
       children: [
@@ -65,9 +65,9 @@ class RekamMedikPage extends StatelessWidget {
                                 showDialog(
                                   context: context,
                                   builder: (context) {
-                                    final _userRmCollection =
-                                        Provider.of<CollectionReference>(
-                                            context);
+                                    final _userRmCollection = FirebaseFirestore
+                                        .instance
+                                        .collection('userRm');
                                     return AlertDialog(
                                       title: Text(
                                           'Anda ingin menghapus ${doc.userRmNama} ?'),

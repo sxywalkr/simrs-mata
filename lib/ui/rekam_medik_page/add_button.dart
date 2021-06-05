@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:simrs_mata/models/user_rm_data.dart';
+import 'package:simrs_mata/models/user_rm_model.dart';
 import 'package:provider/provider.dart';
 
 class AddButton extends StatelessWidget {

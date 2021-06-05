@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:simrs_mata/models/user_rm_data.dart';
+import 'package:simrs_mata/models/user_rm_model.dart';
 
 class UpdUserRmPage extends StatefulWidget {
   // const UpdUserRmPage({
@@ -23,7 +23,7 @@ class _UpdUserRmPageState extends State<UpdUserRmPage> {
   TextEditingController _jenisKelaminController;
   TextEditingController _userRmAlamatController;
   TextEditingController _userRmNomorRmController;
-  UserRmData routes;
+  UserRmModel routes;
 
   @override
   void didChangeDependencies() async {
@@ -44,7 +44,7 @@ class _UpdUserRmPageState extends State<UpdUserRmPage> {
 
   @override
   Widget build(BuildContext context) {
-    final _userRmCollection = Provider.of<CollectionReference>(context);
+    final _userRmCollection = FirebaseFirestore.instance.collection('userRm');
     final _formKey = GlobalKey<FormState>();
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -176,7 +176,7 @@ class _UpdUserRmPageState extends State<UpdUserRmPage> {
                         child: TextButton(
                           onPressed: () {
                             if (_formKey.currentState.validate()) {
-                              final newData = UserRmData(
+                              final newData = UserRmModel(
                                 userRmNik: _userRmNikController.text,
                                 userRmNama: _userRmNamaController.text,
                                 userRmNomorRm: _userRmNomorRmController.text,

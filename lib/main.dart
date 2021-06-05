@@ -4,12 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:simrs_mata/models/data_user_rm_model.dart';
 import 'package:simrs_mata/models/link_data.dart';
-import 'package:simrs_mata/models/user_rm_data.dart';
+import 'package:simrs_mata/models/user_rm_model.dart';
 import 'package:simrs_mata/not_found_page.dart';
-import 'package:simrs_mata/routes/route_controller.dart';
 import 'package:simrs_mata/routes/routes.dart';
-import 'package:simrs_mata/ui/login_page/login_page.dart';
-import 'package:simrs_mata/ui/main_page/main_page.dart';
 import 'package:simrs_mata/ui/splash_page/splash_page.dart';
 
 void main() {
@@ -38,7 +35,7 @@ class MyApp extends StatelessWidget {
     final userRmStream =
         userRmCollection.orderBy('userRmNama').snapshots().map((snapshot) {
       return snapshot.docs.map((doc) {
-        return UserRmData.fromDocument(doc);
+        return UserRmModel.fromDocument(doc);
       }).toList();
     });
 
@@ -70,9 +67,13 @@ class MyApp extends StatelessWidget {
           initialData: [],
           create: (context) => userLinkDataStream,
         ),
-        StreamProvider<List<UserRmData>>(
+        StreamProvider<List<UserRmModel>>(
           initialData: [],
           create: (context) => userRmStream,
+        ),
+        StreamProvider<List<DataUserRmModel>>(
+          initialData: [],
+          create: (context) => dataUserRmStream,
         ),
       ],
       child: MaterialApp(

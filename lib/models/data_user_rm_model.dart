@@ -14,7 +14,7 @@ class DataUserRmModel {
 
   DataUserRmModel({
     @required this.userRmUid,
-    @required this.dataUserRmId,
+    this.dataUserRmId,
     @required this.dataUserRmTanggalPeriksa,
     this.dataUserRmNote1,
     this.dataUserRmHasil1,
