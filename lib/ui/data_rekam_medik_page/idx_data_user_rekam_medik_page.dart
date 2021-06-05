@@ -1,11 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:simrs_mata/models/data_user_rm_model.dart';
 import 'package:simrs_mata/models/user_rm_model.dart';
-import 'package:simrs_mata/routes/routes.dart';
 import 'package:simrs_mata/ui/app_drawer/app_drawer.dart';
-import 'package:simrs_mata/ui/widget/empty_content_widget.dart';
+import 'package:simrs_mata/ui/data_rekam_medik_page/uploading_h2.dart';
 
 class IdxDataUserRekamMedikPage extends StatefulWidget {
   @override
@@ -83,13 +81,22 @@ class _IdxDataUserRekamMedikPageState extends State<IdxDataUserRekamMedikPage> {
                           _dataUserRmModel.dataUserRmTanggalPeriksa))),
                     ],
                   ),
+                  // SizedBox(height: 10),
+                  // SizedBox(
+                  //   height: 40,
+                  //   width: 200,
+                  //   child: TextButton(
+                  //     onPressed: () {},
+                  //     child: Text('Update Hasil 1'),
+                  //   ),
+                  // ),
                   SizedBox(height: 10),
                   SizedBox(
-                    height: 40,
-                    width: 200,
-                    child: TextButton(
-                      onPressed: () {},
-                      child: Text('Update Hasil 1'),
+                    width: 400,
+                    height: 200,
+                    child: UploadingH2(
+                      a: _userRmModel.userRmUid,
+                      b: _dataUserRmModel.dataUserRmTanggalPeriksa,
                     ),
                   ),
                 ],
