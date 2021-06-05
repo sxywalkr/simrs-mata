@@ -21,11 +21,12 @@ class _CreUserRmPageState extends State<CreUserRmPage> {
   @override
   Widget build(BuildContext context) {
     final _userRmCollection = Provider.of<CollectionReference>(context);
+    print(_userRmCollection.path);
     final _formKey = GlobalKey<FormState>();
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Tambah User RM'),
+        title: Text('Tambah User Rekam Medik'),
       ),
       backgroundColor: Colors.blueGrey.shade100,
       body: Center(
@@ -43,7 +44,7 @@ class _CreUserRmPageState extends State<CreUserRmPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Tambah User RM',
+                        'Tambah User Rekam Medik',
                         style: Theme.of(context).textTheme.headline5,
                       ),
                       SizedBox(height: 25),
@@ -166,6 +167,7 @@ class _CreUserRmPageState extends State<CreUserRmPage> {
                                       _jenisKelaminController.text,
                                 ).toMap(),
                               );
+                              print('rerere');
                               Navigator.of(context).pop();
                               _formKey.currentState.reset();
                             }

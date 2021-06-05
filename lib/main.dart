@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:simrs_mata/models/data_user_rm_model.dart';
 import 'package:simrs_mata/models/link_data.dart';
 import 'package:simrs_mata/models/user_rm_data.dart';
 import 'package:simrs_mata/not_found_page.dart';
@@ -33,12 +34,20 @@ class MyApp extends StatelessWidget {
     });
 
     final userRmCollection = FirebaseFirestore.instance.collection('userRm');
-    final dataUserRmCollection =
-        FirebaseFirestore.instance.collection('dataUserRm');
+
     final userRmStream =
         userRmCollection.orderBy('userRmNama').snapshots().map((snapshot) {
       return snapshot.docs.map((doc) {
         return UserRmData.fromDocument(doc);
+      }).toList();
+    });
+
+    final dataUserRmCollection =
+        FirebaseFirestore.instance.collection('dataUser');
+    final dataUserRmStream =
+        dataUserRmCollection.orderBy('dataUserRm').snapshots().map((snapshot) {
+      return snapshot.docs.map((doc) {
+        return DataUserRmModel.fromDocument(doc);
       }).toList();
     });
 

@@ -41,7 +41,7 @@ class RekamMedikPage extends StatelessWidget {
               SizedBox(height: 50),
               SizedBox(
                 width: width * 0.6,
-                height: 200,
+                // height: 200,
                 child: Column(
                   children: [
                     for (var doc in _docs)

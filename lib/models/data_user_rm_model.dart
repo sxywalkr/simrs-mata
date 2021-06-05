@@ -68,6 +68,18 @@ class DataUserRmModel {
     );
   }
 
+  factory DataUserRmModel.fromDocument(QueryDocumentSnapshot map) {
+    return DataUserRmModel(
+      userRmUid: map.id,
+      dataUserRmId: map['dataUserRmId'],
+      dataUserRmTanggalPeriksa: map['dataUserRmTanggalPeriksa'],
+      dataUserRmNote1: map['dataUserRmNote1'],
+      dataUserRmHasil1: map['dataUserRmHasil1'],
+      dataUserRmHasil2: map['dataUserRmHasil2'],
+      dataUserRmDocumentReference: map.reference,
+    );
+  }
+
   String toJson() => json.encode(toMap());
 
   factory DataUserRmModel.fromJson(String source) =>
