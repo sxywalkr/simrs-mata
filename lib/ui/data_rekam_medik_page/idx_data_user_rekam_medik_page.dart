@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:simrs_mata/models/data_user_rm_model.dart';
 import 'package:simrs_mata/models/user_rm_model.dart';
+import 'package:simrs_mata/routes/routes.dart';
 import 'package:simrs_mata/ui/app_drawer/app_drawer.dart';
+import 'package:simrs_mata/ui/data_rekam_medik_page/uploading_h1.dart';
 import 'package:simrs_mata/ui/data_rekam_medik_page/uploading_h2.dart';
 
 class IdxDataUserRekamMedikPage extends StatefulWidget {
@@ -81,22 +83,48 @@ class _IdxDataUserRekamMedikPageState extends State<IdxDataUserRekamMedikPage> {
                           _dataUserRmModel.dataUserRmTanggalPeriksa))),
                     ],
                   ),
-                  // SizedBox(height: 10),
-                  // SizedBox(
-                  //   height: 40,
-                  //   width: 200,
-                  //   child: TextButton(
-                  //     onPressed: () {},
-                  //     child: Text('Update Hasil 1'),
-                  //   ),
-                  // ),
                   SizedBox(height: 10),
+                  Row(
+                    children: [
+                      Text('Hasil 1 :'),
+                      SizedBox(width: 8),
+                      Text(_dataUserRmModel.dataUserRmHasil1 == null
+                          ? ''
+                          : _dataUserRmModel.dataUserRmHasil1.substring(0, 40)),
+                    ],
+                  ),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pushNamed(Routes.wgtImageViewer,
+                            arguments: _dataUserRmModel.dataUserRmHasil1);
+                      },
+                      child: Text('View')),
+                  SizedBox(height: 30),
                   SizedBox(
-                    width: 400,
-                    height: 200,
+                    // width: 400,
+                    height: 150,
+                    child: UploadingH1(
+                      paramA: _userRmModel.userRmUid,
+                      paramB: _dataUserRmModel.dataUserRmId,
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Row(
+                    children: [
+                      Text('Hasil 2 :'),
+                      SizedBox(width: 8),
+                      Text(_dataUserRmModel.dataUserRmHasil2 == null
+                          ? ''
+                          : _dataUserRmModel.dataUserRmHasil2.substring(0, 40)),
+                    ],
+                  ),
+                  SizedBox(height: 30),
+                  SizedBox(
+                    // width: 400,
+                    height: 150,
                     child: UploadingH2(
-                      a: _userRmModel.userRmUid,
-                      b: _dataUserRmModel.dataUserRmTanggalPeriksa,
+                      paramA: _userRmModel.userRmUid,
+                      paramB: _dataUserRmModel.dataUserRmId,
                     ),
                   ),
                 ],

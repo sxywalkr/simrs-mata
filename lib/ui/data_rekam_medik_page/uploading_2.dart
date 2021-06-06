@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:io' as io;
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart' as firebase_core;
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter/foundation.dart';
@@ -16,20 +15,17 @@ enum UploadType {
   clear,
 }
 
-class UploadingH1 extends StatefulWidget {
+class Uploading2 extends StatefulWidget {
   // ignore: public_member_api_docs
-  UploadingH1({this.paramA, this.paramB, Key key}) : super(key: key);
-
-  final String paramA;
-  final String paramB;
+  Uploading2({Key key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return _UploadingH1();
+    return _Uploading2();
   }
 }
 
-class _UploadingH1 extends State<UploadingH1> {
+class _Uploading2 extends State<Uploading2> {
   List<firebase_storage.UploadTask> _uploadTasks = [];
 
   /// The user selects a file, and the task is added to the list.
@@ -46,8 +42,8 @@ class _UploadingH1 extends State<UploadingH1> {
     // Create a Reference to the file
     firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
         .ref()
-        .child('/${widget.paramA}/${widget.paramB}')
-        .child('/hasil1.jpg');
+        .child('playground')
+        .child('/some-image.jpg');
 
     final metadata = firebase_storage.SettableMetadata(
         contentType: 'image/jpeg',
@@ -134,10 +130,6 @@ class _UploadingH1 extends State<UploadingH1> {
     );
   }
 
-  // Future<void> _getDownloadLink(firebase_storage.Reference ref) async {
-  //   return await ref.getDownloadURL();
-  // }
-
   Future<void> _downloadFile(firebase_storage.Reference ref) async {
     final io.Directory systemTempDir = io.Directory.systemTemp;
     final io.File tempFile = io.File('${systemTempDir.path}/temp-${ref.name}');
@@ -158,49 +150,48 @@ class _UploadingH1 extends State<UploadingH1> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        elevation: 0,
-        title: const Text('Hasil 1'),
-        actions: [
-          PopupMenuButton<UploadType>(
-            onSelected: handleUploadType,
-            icon: const Icon(Icons.add),
-            itemBuilder: (context) => [
-              const PopupMenuItem(
-                  // ignore: sort_child_properties_last
-                  child: Text('Upload file'),
-                  value: UploadType.file),
-              if (_uploadTasks.isNotEmpty)
-                const PopupMenuItem(
-                    // ignore: sort_child_properties_last
-                    child: Text('Clear list'),
-                    value: UploadType.clear)
-            ],
-          )
-        ],
-      ),
-      body: _uploadTasks.isEmpty
-          ? const Center(child: Text("Tap '+' untuk menambah file."))
-          : ListView.builder(
-              itemCount: _uploadTasks.length,
-              itemBuilder: (context, index) => UploadTaskListTile(
-                task: _uploadTasks[index],
-                onDismissed: () => _removeTaskAtIndex(index),
+    return Column(
+      children: [
+        TextButton(
+          onPressed: () => handleUploadType(UploadType.file),
+          child: Text('Uploading'),
+        ),
+        _uploadTasks.isEmpty
+            ? const Center(
+                child: Text("Press the '+' button to add a new file."))
+            : UploadTaskListTile(
+                task: _uploadTasks[0],
+                onDismissed: () => _removeTaskAtIndex(0),
                 onDownloadLink: () {
-                  return _downloadLink(_uploadTasks[index].snapshot.ref);
+                  return _downloadLink(_uploadTasks[0].snapshot.ref);
                 },
                 onDownload: () {
                   if (kIsWeb) {
-                    return _downloadBytes(_uploadTasks[index].snapshot.ref);
+                    return _downloadBytes(_uploadTasks[0].snapshot.ref);
                   } else {
-                    return _downloadFile(_uploadTasks[index].snapshot.ref);
+                    return _downloadFile(_uploadTasks[0].snapshot.ref);
                   }
                 },
-                paramB: widget.paramB,
               ),
-            ),
+
+        // ListView.builder(
+        //   itemCount: _uploadTasks.length,
+        //   itemBuilder: (context, index) => UploadTaskListTile(
+        //     task: _uploadTasks[index],
+        //     onDismissed: () => _removeTaskAtIndex(index),
+        //     onDownloadLink: () {
+        //       return _downloadLink(_uploadTasks[index].snapshot.ref);
+        //     },
+        //     onDownload: () {
+        //       if (kIsWeb) {
+        //         return _downloadBytes(_uploadTasks[index].snapshot.ref);
+        //       } else {
+        //         return _downloadFile(_uploadTasks[index].snapshot.ref);
+        //       }
+        //     },
+        //   ),
+        // ),
+      ],
     );
   }
 }
@@ -214,7 +205,6 @@ class UploadTaskListTile extends StatelessWidget {
     this.onDismissed,
     this.onDownload,
     this.onDownloadLink,
-    this.paramB,
   }) : super(key: key);
 
   /// The [UploadTask].
@@ -229,19 +219,9 @@ class UploadTaskListTile extends StatelessWidget {
   /// Triggered when the user presses the "link" button on a completed upload task.
   final VoidCallback /*!*/ onDownloadLink;
 
-  final String paramB;
-
   /// Displays the current transferred bytes of the task.
   String _bytesTransferred(firebase_storage.TaskSnapshot snapshot) {
     return '${snapshot.bytesTransferred}/${snapshot.totalBytes}';
-  }
-
-  Future<void> _getDownloadLink(firebase_storage.Reference ref) async {
-    final link = await ref.getDownloadURL();
-    final _dataUserRmCollection =
-        FirebaseFirestore.instance.collection('dataUserRm');
-    // final updData = DataUserRmModel(userRmUid: userRmUid, dataUserRmTanggalPeriksa: dataUserRmTanggalPeriksa)
-    _dataUserRmCollection.doc(paramB).update({'dataUserRmHasil1': link});
   }
 
   @override
@@ -268,10 +248,6 @@ class UploadTaskListTile extends StatelessWidget {
           }
         } else if (snapshot != null) {
           subtitle = Text('$state: ${_bytesTransferred(snapshot)} bytes sent');
-        }
-
-        if (state == firebase_storage.TaskState.success) {
-          _getDownloadLink(snapshot.ref);
         }
 
         return Dismissible(

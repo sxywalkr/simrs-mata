@@ -10,12 +10,12 @@ class CreDataUserRmPage extends StatefulWidget {
 }
 
 class _CreDataUserRmPageState extends State<CreDataUserRmPage> {
-  TextEditingController _dataUserRmIdController = TextEditingController();
-  TextEditingController _dataUserRmTanggalPeriksaController =
-      TextEditingController();
-  TextEditingController _dataUserRmNote1Controller = TextEditingController();
-  TextEditingController _dataUserRmHasil1Controller = TextEditingController();
-  TextEditingController _dataUserRmHasil2Controller = TextEditingController();
+  // TextEditingController _dataUserRmIdController = TextEditingController();
+  // TextEditingController _dataUserRmTanggalPeriksaController =
+  // TextEditingController();
+  // TextEditingController _dataUserRmNote1Controller = TextEditingController();
+  // TextEditingController _dataUserRmHasil1Controller = TextEditingController();
+  // TextEditingController _dataUserRmHasil2Controller = TextEditingController();
   DateTime _date1 = DateTime.now();
   UserRmModel routes;
 
@@ -87,13 +87,17 @@ class _CreDataUserRmPageState extends State<CreDataUserRmPage> {
                         child: TextButton(
                           onPressed: () {
                             if (_formKey.currentState.validate()) {
-                              _dataUserRmCollection.add(
-                                DataUserRmModel(
-                                  userRmUid: routes.userRmUid,
-                                  dataUserRmTanggalPeriksa:
-                                      _date1.toIso8601String(),
-                                ).toMap(),
-                              );
+                              _dataUserRmCollection
+                                  .add(
+                                    DataUserRmModel(
+                                      userRmUid: routes.userRmUid,
+                                      dataUserRmTanggalPeriksa:
+                                          _date1.toIso8601String(),
+                                    ).toMap(),
+                                  )
+                                  .then((value) => _dataUserRmCollection
+                                      .doc(value.id)
+                                      .update({'dataUserRmId': value.id}));
                               Navigator.of(context).pop();
                               _formKey.currentState.reset();
                             }

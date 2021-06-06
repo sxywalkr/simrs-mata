@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -10,6 +9,7 @@ import 'package:simrs_mata/ui/rekam_medik_page/cre_user_rm_page.dart';
 import 'package:simrs_mata/ui/rekam_medik_page/upd_user_rm_page.dart';
 import 'package:simrs_mata/ui/rekam_medik_page/viw_user_rm_page.dart';
 import 'package:simrs_mata/ui/splash_page/splash_page.dart';
+import 'package:simrs_mata/ui/widget/image_viewer.dart';
 
 class Routes {
   Routes._(); //this is to prevent anyone from instantiate this object
@@ -22,6 +22,7 @@ class Routes {
   static const String viwUserRm = '/viw-user-rm';
   static const String creDataUserRm = '/cre-data-user-rm';
   static const String idxDataUserRm = '/idx-data-user-rm';
+  static const String wgtImageViewer = '/wgt-image-viewer';
   static const String setting = '/setting';
 
   static final routes = <String, WidgetBuilder>{
@@ -53,6 +54,10 @@ class Routes {
     idxDataUserRm: (BuildContext context) {
       final _userSignedIn = Provider.of<User>(context) != null;
       return _userSignedIn ? IdxDataUserRekamMedikPage() : LoginPage();
+    },
+    wgtImageViewer: (BuildContext context) {
+      final _userSignedIn = Provider.of<User>(context) != null;
+      return _userSignedIn ? ImageViewer() : LoginPage();
     },
     // setting: (BuildContext context) {
     //   final _userSignedIn = Provider.of<User>(context) != null;
