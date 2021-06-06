@@ -15,11 +15,24 @@ For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
-#simrs_mata
+# simrs_mata
 
-#rules
+# rules
 allow read, write: if request.auth != null;
 
-#userapp
+# userapp
 adm@app.com
 adm_p455
+
+# build release
+flutter build web
+flutter run -d chrome --release
+
+firebase init
+hosting
+What do you want to use as your public directory? build/web
+? Configure as a single-page app (rewrite all urls to /index.html)? Yes
+? Set up automatic builds and deploys with GitHub? No
+? File build/web/index.html already exists. Overwrite? No
+
+firebase deploy

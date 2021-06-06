@@ -160,6 +160,7 @@ class _UploadingH2 extends State<UploadingH2> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         elevation: 0,
         title: const Text('Hasil 2'),
         actions: [
