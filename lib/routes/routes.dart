@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:simrs_mata/ui/data_rekam_medik_page/cre_data_user_rm_page.dart';
 import 'package:simrs_mata/ui/data_rekam_medik_page/idx_data_user_rekam_medik_page.dart';
 import 'package:simrs_mata/ui/login_page/login_page.dart';
+import 'package:simrs_mata/ui/login_page/register_page.dart';
 import 'package:simrs_mata/ui/main_page/main_page.dart';
 import 'package:simrs_mata/ui/rekam_medik_page/cre_user_rm_page.dart';
 import 'package:simrs_mata/ui/rekam_medik_page/upd_user_rm_page.dart';
@@ -15,6 +16,7 @@ class Routes {
   Routes._(); //this is to prevent anyone from instantiate this object
 
   static const String loginPage = '/login';
+  static const String registerPage = '/register';
   static const String splashPage = '/splash';
   static const String mainPage = '/mainPage';
   static const String creUserRm = '/cre-user-rm';
@@ -27,6 +29,7 @@ class Routes {
 
   static final routes = <String, WidgetBuilder>{
     loginPage: (BuildContext context) => LoginPage(),
+    registerPage: (BuildContext context) => RegisterPage(),
     splashPage: (BuildContext context) {
       final _userSignedIn = Provider.of<User>(context) != null;
       return _userSignedIn ? SplashPage() : LoginPage();

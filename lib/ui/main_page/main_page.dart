@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:simrs_mata/routes/routes.dart';
 import 'package:simrs_mata/ui/app_drawer/app_drawer.dart';
 import 'package:simrs_mata/ui/rekam_medik_page/rekam_medik_page.dart';
 
@@ -17,7 +18,7 @@ class MainPage extends StatelessWidget {
             label: Text('Sign out'),
             style: TextButton.styleFrom(primary: Colors.white),
             onPressed: () {
-              Navigator.of(context).pushReplacementNamed('/splash');
+              Navigator.of(context).pushReplacementNamed(Routes.loginPage);
               return FirebaseAuth.instance.signOut();
             },
           ),

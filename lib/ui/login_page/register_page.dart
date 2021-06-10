@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:simrs_mata/models/app_user_model.dart';
 import 'package:simrs_mata/routes/routes.dart';
 
-class LoginPage extends StatelessWidget {
+class RegisterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _appUserCollection = FirebaseFirestore.instance.collection('appUser');
@@ -73,34 +73,28 @@ class LoginPage extends StatelessWidget {
                             final _email = _emailController.text;
                             final _password = _passwordController.text;
                             FirebaseAuth.instance
-                                .signInWithEmailAndPassword(
-                              email: _email,
-                              password: _password,
-                            )
+                                .createUserWithEmailAndPassword(
+                                  email: _email,
+                                  password: _password,
+                                )
                                 .then(
-                              (value) {
-                                return _appUserCollection
-                                    .where('appUserUid',
-                                        isEqualTo: value.user.uid)
-                                    .get()
-                                    .then(
-                                      (value) => _appUserCollection
-                                          .doc(value.docs.first.id)
-                                          .update({
-                                        'appUserLastLogin':
-                                            DateTime.now().toIso8601String()
-                                      }).then((_) => Navigator.of(context)
-                                              .pushReplacementNamed(
-                                                  Routes.mainPage)),
-                                    );
-                              },
-                            ).catchError((error) {
+                                  (value) => _appUserCollection
+                                      .add(AppUserModel(
+                                              appUserUid: value.user.uid,
+                                              appUserNama: _email,
+                                              appUserEmail: _email,
+                                              appUserRole: 'Guest')
+                                          .toMap())
+                                      .then((_) => Navigator.of(context)
+                                          .pushNamed(Routes.mainPage)),
+                                )
+                                .catchError((error) {
                               showErrorDialog(context, error);
                             });
                           }
                         },
                         child: Text(
-                          'Login',
+                          'Register',
                           style: TextStyle(color: Colors.white),
                         ),
                         style:
