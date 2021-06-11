@@ -1,11 +1,8 @@
 import 'dart:async';
 
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:simrs_mata/routes/routes.dart';
-import 'package:simrs_mata/ui/login_page/login_page.dart';
-import 'package:simrs_mata/ui/main_page/main_page.dart';
 
 class SplashPage extends StatefulWidget {
   @override
@@ -13,10 +10,18 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
+  String _appUserUid = 'No Data';
+
   @override
   void initState() {
     super.initState();
     if (mounted) startTimer();
+  }
+
+  @override
+  void didChangeDependencies() async {
+    super.didChangeDependencies();
+    _appUserUid = ModalRoute.of(context).settings.arguments;
   }
 
   @override
@@ -33,12 +38,22 @@ class _SplashPageState extends State<SplashPage> {
     return Timer(duration, redirect);
   }
 
-  redirect() {
-    // final userSignedIn = Provider.of<User>(context, listen: false) != null;
-    // if (userSignedIn) {
-    Navigator.of(context).pushReplacementNamed(Routes.mainPage);
-    // } else {
-    //   Navigator.of(context).pushReplacementNamed(Routes.loginPage);
-    // }
+  redirect() async {
+    if (_appUserUid == 'No Data') {
+      await FirebaseFirestore.instance
+          .collection('appUser')
+          .where('appUserUid', isEqualTo: _appUserUid)
+          .get()
+          .then((value) {
+        print(value.docs.first.data()['appUserRole']);
+        if (value.docs.first.data()['appUserRole'] == 'Guest') {
+          Navigator.of(context).pushReplacementNamed(Routes.mainPage);
+        } else if (value.docs.first.data()['appUserRole'] == 'Resepsionis') {
+          Navigator.of(context).pushReplacementNamed(Routes.mainPage);
+        } else if (value.docs.first.data()['appUserRole'] == 'Dokter') {
+          Navigator.of(context).pushReplacementNamed(Routes.mainPage);
+        }
+      });
+    }
   }
 }

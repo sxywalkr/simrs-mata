@@ -91,7 +91,9 @@ class LoginPage extends StatelessWidget {
                                             DateTime.now().toIso8601String()
                                       }).then((_) => Navigator.of(context)
                                               .pushReplacementNamed(
-                                                  Routes.mainPage)),
+                                                  Routes.splashPage,
+                                                  arguments:
+                                                      value.docs.first.id)),
                                     );
                               },
                             ).catchError((error) {

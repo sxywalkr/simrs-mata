@@ -30,10 +30,7 @@ class Routes {
   static final routes = <String, WidgetBuilder>{
     loginPage: (BuildContext context) => LoginPage(),
     registerPage: (BuildContext context) => RegisterPage(),
-    splashPage: (BuildContext context) {
-      final _userSignedIn = Provider.of<User>(context) != null;
-      return _userSignedIn ? SplashPage() : LoginPage();
-    },
+    splashPage: (BuildContext context) => SplashPage(),
     mainPage: (BuildContext context) {
       final _userSignedIn = Provider.of<User>(context) != null;
       return _userSignedIn ? MainPage() : LoginPage();

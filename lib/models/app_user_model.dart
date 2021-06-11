@@ -66,6 +66,18 @@ class AppUserModel {
     );
   }
 
+  factory AppUserModel.fromDocument(QueryDocumentSnapshot map) {
+    return AppUserModel(
+      appUserUid: map.id,
+      appUserNama: map['appUserNama'],
+      appUserEmail: map['appUserEmail'],
+      appUserRole: map['appUserRole'],
+      appUserFcmId: map['appUserFcmId'],
+      appUserLastLogin: map['appUserLastLogin'],
+      appUserDocumentReference: map.reference,
+    );
+  }
+
   String toJson() => json.encode(toMap());
 
   factory AppUserModel.fromJson(String source) =>
