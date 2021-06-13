@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:simrs_mata/models/app_user_model.dart';
 import 'package:simrs_mata/models/data_user_rm_model.dart';
 import 'package:simrs_mata/models/link_data.dart';
 import 'package:simrs_mata/models/user_rm_model.dart';
@@ -48,6 +49,8 @@ class MyApp extends StatelessWidget {
       }).toList();
     });
 
+    String userUid;
+
     return MultiProvider(
       providers: [
         StreamProvider<User>(
@@ -63,6 +66,14 @@ class MyApp extends StatelessWidget {
         Provider<CollectionReference>(
           create: (context) => dataUserRmCollection,
         ),
+        FutureProvider<String>(
+          initialData: 'noUid',
+          create: (context) => Future.value(userUid),
+          // child: MyApp(),
+        ),
+        // ChangeNotifierProxyProvider0<>(
+        //   create: (context) => AppUserModel(),
+        // ),
         StreamProvider<List<LinkData>>(
           initialData: [],
           create: (context) => userLinkDataStream,

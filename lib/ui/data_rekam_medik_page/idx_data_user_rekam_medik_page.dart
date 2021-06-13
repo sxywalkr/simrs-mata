@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:simrs_mata/models/data_user_rm_model.dart';
 import 'package:simrs_mata/models/user_rm_model.dart';
 import 'package:simrs_mata/routes/routes.dart';
@@ -28,7 +30,7 @@ class _IdxDataUserRekamMedikPageState extends State<IdxDataUserRekamMedikPage> {
   @override
   Widget build(BuildContext context) {
     // final _docs = Provider.of<List<DataUserRmModel>>(context);
-
+    final _userSignedIn = Provider.of<User>(context);
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
@@ -88,45 +90,57 @@ class _IdxDataUserRekamMedikPageState extends State<IdxDataUserRekamMedikPage> {
                     children: [
                       Text('Hasil 1 :'),
                       SizedBox(width: 8),
-                      Text(_dataUserRmModel.dataUserRmHasil1 == null
-                          ? ''
-                          : _dataUserRmModel.dataUserRmHasil1.substring(0, 40)),
+                      // Text(_dataUserRmModel.dataUserRmHasil1 == null
+                      //     ? ''
+                      //     : _dataUserRmModel.dataUserRmHasil1.substring(0, 40)),
+                      if (_userSignedIn.email != 'resepsionis@app.com')
+                        TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pushNamed(
+                                  Routes.wgtImageViewer,
+                                  arguments: _dataUserRmModel.dataUserRmHasil1);
+                            },
+                            child: Text('View')),
                     ],
                   ),
-                  TextButton(
-                      onPressed: () {
-                        Navigator.of(context).pushNamed(Routes.wgtImageViewer,
-                            arguments: _dataUserRmModel.dataUserRmHasil1);
-                      },
-                      child: Text('View')),
                   SizedBox(height: 30),
-                  SizedBox(
-                    // width: 400,
-                    height: 150,
-                    child: UploadingH1(
-                      paramA: _userRmModel.userRmUid,
-                      paramB: _dataUserRmModel.dataUserRmId,
+                  if (_userSignedIn.email == 'nurs@app.com')
+                    SizedBox(
+                      // width: 400,
+                      height: 150,
+                      child: UploadingH1(
+                        paramA: _userRmModel.userRmUid,
+                        paramB: _dataUserRmModel.dataUserRmId,
+                      ),
                     ),
-                  ),
                   SizedBox(height: 10),
                   Row(
                     children: [
                       Text('Hasil 2 :'),
                       SizedBox(width: 8),
-                      Text(_dataUserRmModel.dataUserRmHasil2 == null
-                          ? ''
-                          : _dataUserRmModel.dataUserRmHasil2.substring(0, 40)),
+                      // Text(_dataUserRmModel.dataUserRmHasil2 == null
+                      //     ? ''
+                      //     : _dataUserRmModel.dataUserRmHasil2.substring(0, 40)),
+                      if (_userSignedIn.email != 'resepsionis@app.com')
+                        TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pushNamed(
+                                  Routes.wgtImageViewer,
+                                  arguments: _dataUserRmModel.dataUserRmHasil2);
+                            },
+                            child: Text('View')),
                     ],
                   ),
                   SizedBox(height: 30),
-                  SizedBox(
-                    // width: 400,
-                    height: 150,
-                    child: UploadingH2(
-                      paramA: _userRmModel.userRmUid,
-                      paramB: _dataUserRmModel.dataUserRmId,
+                  if (_userSignedIn.email == 'nurs@app.com')
+                    SizedBox(
+                      // width: 400,
+                      height: 150,
+                      child: UploadingH2(
+                        paramA: _userRmModel.userRmUid,
+                        paramB: _dataUserRmModel.dataUserRmId,
+                      ),
                     ),
-                  ),
                 ],
               ),
             ),

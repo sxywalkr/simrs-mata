@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class AppUserModel {
+class AppUserModel extends ChangeNotifier {
   final String appUserUid;
   final String appUserNama;
   final String appUserEmail;

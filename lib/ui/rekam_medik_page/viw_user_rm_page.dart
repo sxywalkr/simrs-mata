@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:simrs_mata/models/data_user_rm_model.dart';
 import 'package:simrs_mata/models/user_rm_model.dart';
 import 'package:simrs_mata/routes/routes.dart';
@@ -24,7 +26,7 @@ class _ViwUserRmPageState extends State<ViwUserRmPage> {
   @override
   Widget build(BuildContext context) {
     // final _docs = Provider.of<List<DataUserRmModel>>(context);
-
+    final _userSignedIn = Provider.of<User>(context);
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
@@ -72,17 +74,18 @@ class _ViwUserRmPageState extends State<ViwUserRmPage> {
                   ),
                   SizedBox(height: 10),
                   // Divider(),
-                  SizedBox(
-                    height: 40,
-                    width: 200,
-                    child: TextButton(
-                      onPressed: () {
-                        Navigator.of(context).pushNamed(Routes.creDataUserRm,
-                            arguments: _userRmModel);
-                      },
-                      child: Text('Tambah Data Rekam Medik'),
+                  if (_userSignedIn.email == 'nurs@app.com')
+                    SizedBox(
+                      height: 40,
+                      width: 200,
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pushNamed(Routes.creDataUserRm,
+                              arguments: _userRmModel);
+                        },
+                        child: Text('Tambah Data Rekam Medik'),
+                      ),
                     ),
-                  ),
                   Divider(),
                   SizedBox(
                       width: width * 0.6,

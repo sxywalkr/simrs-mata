@@ -90,10 +90,12 @@ class LoginPage extends StatelessWidget {
                                         'appUserLastLogin':
                                             DateTime.now().toIso8601String()
                                       }).then((_) => Navigator.of(context)
-                                              .pushReplacementNamed(
-                                                  Routes.splashPage,
-                                                  arguments:
-                                                      value.docs.first.id)),
+                                                      .pushReplacementNamed(
+                                                    Routes.mainPage,
+                                                  )
+                                              // Routes.splashPage,
+                                              // arguments: value.docs.first.id),
+                                              ),
                                     );
                               },
                             ).catchError((error) {
